@@ -1,5 +1,9 @@
 pipeline {
-    agent any
+    agent {
+        node {
+            label 'My-Jenkins-Agent'
+        }
+    }
 
     tools {
         // Install the Maven version configured as "M3" and add it to the path.
@@ -36,6 +40,20 @@ pipeline {
                         sh 'mvn clean install'
                     } else {
                         bat 'mvn clean install'
+                    }
+                }
+            }
+        }
+            stage("SonarQube Analysis") {
+            steps {
+                script {
+                    withSonarQubeEnv(credentialsId: 'jenkins-sonarqube-token') {
+                        if (isUnix()) {
+                            // Linux or MacOS
+                            sh "mvn sonar:sonar"
+                        } else {
+                            bat 'mvn sonar:sonar'  // Windows
+                        }
                     }
                 }
             }
