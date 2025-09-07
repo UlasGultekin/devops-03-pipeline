@@ -19,8 +19,13 @@ pipeline {
         }
         stage('Test Maven') {
             steps {
-            //    sh 'mvn test'
-                bat 'mvn test'
+            if(isUnix(){
+            sh 'mvn test'
+            }
+            else{
+            bat 'mvn test'
+            }
+
             }
         }
         stage('Build Maven') {
