@@ -19,7 +19,7 @@ pipeline {
         }
         stage('Test Maven') {
             steps {
-            if(isUnix(){
+            if (isUnix()){
             sh 'mvn test'
             }
             else{
