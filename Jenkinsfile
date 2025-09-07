@@ -13,7 +13,7 @@ pipeline {
                 checkout scmGit(
                     branches: [[name: '*/main']],
                     extensions: [],
-                    userRemoteConfigs: [[url: 'https://github.com/UlasGultekin/devops-02-pipeline']]
+                    userRemoteConfigs: [[url: 'https://github.com/UlasGultekin/devops-03-pipeline']]
                 )
             }
         }
@@ -29,7 +29,7 @@ pipeline {
                 }
             }
         }
-
+/*
         stage('Docker Image') {
             steps {
                 script {
@@ -72,6 +72,6 @@ pipeline {
                              bat 'docker image prune -f'
 
                     }
-                }
+                }*/
     }
 }
