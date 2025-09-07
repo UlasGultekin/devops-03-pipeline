@@ -409,7 +409,7 @@ sudo systemctl enable postgresql
 
 sudo passwd postgres
 
-parola: 123456789
+parola: 1
 
 
 
@@ -417,7 +417,7 @@ parola: 123456789
 
 su - postgres
 
-parola: 123456789
+parola: 1
 
 createuser sonar
 
