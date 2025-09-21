@@ -253,3 +253,26 @@ Erişim:
 👉 `http://PUBLIC_IP:9000/`  
 **Kullanıcı:** admin  
 **Parola:** admin
+
+```
+stage('Cleanup Old Docker Images') {
+steps {
+script {
+if (isUnix()) {
+// Bu repo için tüm image’leri al, tarihe göre sırala, son 3 hariç sil
+sh """
+docker images "${env.IMAGE_NAME}" --format "{{.Repository}}:{{.Tag}} {{.CreatedAt}}" \\
+| sort -r -k2 \\
+| tail -n +4 \\
+| awk '{print \$1}' \\
+| xargs -r docker rmi -f
+"""
+} else {
+bat """
+for /f "skip=3 tokens=1" %%i in ('docker images ${env.IMAGE_NAME} --format "{{.Repository}}:{{.Tag}}" ^| sort') do docker rmi -f %%i
+"""
+}
+}
+}
+}
+```
